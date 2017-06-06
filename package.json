@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "dev": "babel-node dev/server.js",
+    "dev": "node dev/server.js",
     "start": "node server"
   },
   "repository": {

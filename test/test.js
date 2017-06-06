@@ -1,1 +1,1 @@
-import asserts from 'asserts';
+var assert = require('assert');
