@@ -75,11 +75,11 @@ describe('A store', () => {
 		})
 
 		it('should remove a subscribed function when called again', () => {
-			let testBool = false;
-			let boolChange = () => testBool = true;
+			let testBool = true;
+			let boolChange = () => testBool = false;
 
 			store.subscribe(boolChange);
-			store.subscribe(boolChange);
+			store.subscribe(boolChange)();
 			store.dispatch(invalid_action);
 
 			assert(testBool);
