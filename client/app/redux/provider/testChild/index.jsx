@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 
 export default class TestChild extends Component {
@@ -12,5 +13,5 @@ export default class TestChild extends Component {
 }
 
 TestChild.contextTypes = {
-	store: React.PropTypes.object
+	store: PropTypes.object
 };

@@ -1,12 +1,36 @@
 import assert from 'assert';
 
 
-//import timeSeriesGraph from './timeSeriesGraph';
+import timeSeriesGraph from './timeSeriesGraph';
 
 
 describe('A d3 line graph', () => {
 
+	const props = {
+		height: 10,
+		width: 15,
+	}
 
+	const dataSet1 = [
+		["2012-05-18", 42.05],
+		["2012-05-21", 36.53],
+		["2012-05-22", 32.61],
+	]
+
+	const dataSet2 = [
+		["2012-05-18", 42.05],
+		["2012-05-21", 36.53],
+		["2012-05-22", 32.61],
+		["2012-05-23", 35.61],
+	]
+
+	let graph;
+
+	beforeEach(()=> {
+		graph = new timeSeriesGraph();
+	});
+
+	//document.createElement('body')
 	//let line = document.getElementsByTagName('body');
 	//console.log(line);
 	
@@ -28,6 +52,17 @@ describe('A d3 line graph', () => {
 		})
 
 		it('should delete old data', () => {
+
+		})
+	})
+
+	describe('#scale()', () => {
+
+		it('should return a scale function as a property for X', () => {
+			console.log(graph.scale(props, dataSet1));
+		})
+
+		it('should return a scale function as a property for Y', () => {
 
 		})
 	})
