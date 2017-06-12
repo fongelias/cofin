@@ -10,51 +10,24 @@ describe('A d3 line graph', () => {
 		height: 100,
 		width: 200,
 	}
-
 	const dataSet1 = [
 		["2012-05-18", 42.05],
 		["2012-05-21", 36.53],
 		["2012-05-22", 32.61],
 	]
-
 	const dataSet2 = [
 		["2012-05-18", 42.05],
 		["2012-05-21", 36.53],
 		["2012-05-22", 32.61],
 		["2012-05-23", 35.61],
 	]
-
 	let graph;
+
 
 	beforeEach(()=> {
 		graph = new timeSeriesGraph();
 	});
 
-	//document.createElement('body')
-	//let line = document.getElementsByTagName('body');
-	//console.log(line);
-	
-	describe('#create()', () => {
-
-		it('should mount the graph', () => {
-			assert();
-		})
-
-		it('should represent its data', () => {
-			assert();
-		})
-	})
-
-	describe('#update()', () => {
-
-		it('should add new data', () => {
-
-		})
-
-		it('should delete old data', () => {
-
-		})
-	})
 
 	describe('#scale()', () => {
 		//Test Data
@@ -83,9 +56,4 @@ describe('A d3 line graph', () => {
 		})
 	})
 
-	describe('#destroy()', () => {
-		it('should destroy the existing graph', () => {
-
-		})
-	})
 })
