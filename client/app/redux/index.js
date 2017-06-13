@@ -3,7 +3,5 @@ import reducers from './reducers';
 
 
 export const store = createStore(reducers);
-
 export { Provider } from './provider/provider.jsx';
-
-export { actions } from './actions';
+export * from './actions';

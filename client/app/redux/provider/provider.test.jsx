@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, render } from 'enzyme';
 import assert from 'assert';
-import { renderToString } from 'react-dom/server';
 
 import TestChild from './testChild';
-import Provider from './provider';
+import { Provider } from './provider';
 
 
 describe('A Provider Component', () => {
