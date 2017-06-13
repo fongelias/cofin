@@ -27,7 +27,7 @@ module.exports = {
 			allChunks: true
 		}),
 		new CopyWebpackPlugin([
-			{from: './client/index.html', to: './index.html'},
+			//{from: './client/index.html', to: './index.html'},
 		]),
 	    new webpack.DefinePlugin({
 	      'process.env.NODE_ENV': JSON.stringify('production')
