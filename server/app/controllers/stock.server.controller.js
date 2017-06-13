@@ -10,3 +10,8 @@ exports.renderIndex = function(req, res) {
 			console.log(error);
 		});
 }
+
+exports.ticker = function(req, res, next, ticker) {
+	req.ticker = ticker;
+	next();
+}

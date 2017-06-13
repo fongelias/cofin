@@ -8,7 +8,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "webpack",
-    "watch": "webpack -w",
+    "watch": "webpack -w && node server",
     "dist": "webpack -p",
     "dev": "webpack && node server",
     "start": "node server"

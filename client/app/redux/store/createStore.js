@@ -1,7 +1,9 @@
-export default (reducer) => {
-	let state;
+export default (reducer, preloadedState) => {
+	let state = preloadedState || undefined;
 	let listeners = [];
 
+	console.log( state );
+	 
 	const getState = () => state;
 
 	const dispatch = (action) => {

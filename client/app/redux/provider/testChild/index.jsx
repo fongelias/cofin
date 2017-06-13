@@ -13,5 +13,5 @@ export default class TestChild extends Component {
 }
 
 TestChild.contextTypes = {
-	store: PropTypes.object
+	store: PropTypes.object,
 };
