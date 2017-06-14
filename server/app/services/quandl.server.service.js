@@ -4,26 +4,29 @@ var https = require('https');
 
 //Const
 var hostname = 'www.quandl.com';
+var defaultTicker = 'GOOGL';
+
+//Helper Functions
+function zeroPad(string) {
+	return string.length == 1 ? '0' + string : string;
+}
+
+function lastYear() {
+	var today = new Date();
+	return today.getFullYear() - 1 + zeroPad(today.getMonth().toString()) + zeroPad(today.getDate().toString());
+}
+
 
 //Exports
 exports.getStockData = function(ticker, startDate) {
+	if(!ticker) {
+		ticker = defaultTicker;
+	}
+
+
 	return new Promise(function(resolve, reject) {
-
-		var zeroPad = function(string) {
-			return string.length == 1 ? '0' + string : string;
-		}
-
-		var today = new Date();
-		var year = today.getFullYear() - 1;
-		var day = zeroPad(today.getDate().toString());
-		var month = zeroPad(today.getMonth().toString());
-		var lastYear = year + month + day;
-
-
-		console.log( year + month + day);
-
 		var path = '/api/v3/datatables/WIKI/PRICES.json?ticker=' + 
-					ticker + '&qopts.columns=date,open&date.gt=' + lastYear + '&api_key=' + 
+					ticker + '&qopts.columns=date,open&date.gt=' + lastYear() + '&api_key=' + 
 					config.quandlAPIKey;
 
 		var requestOptions = {
@@ -41,11 +44,9 @@ exports.getStockData = function(ticker, startDate) {
 			res.setEncoding('utf8');
 
 			var data = '';
-
 			res.on('data', function(chunk) {
 				data += chunk;
 			});
-
 			res.on('end', function() {
 				data = JSON.parse(data);
 				data.ticker = ticker;
