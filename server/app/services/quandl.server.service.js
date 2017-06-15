@@ -6,7 +6,7 @@ var https = require('https');
 var hostname = 'www.quandl.com';
 var defaultTicker = 'GOOGL';
 
-//Helper Functions
+//Helper Functions+++++++++++++++++++++++++++++++++++++
 function zeroPad(string) {
 	return string.length == 1 ? '0' + string : string;
 }
@@ -17,7 +17,7 @@ function lastYear() {
 }
 
 
-//Exports
+//Exports++++++++++++++++++++++++++++++++++++++++++++++
 exports.getStockData = function(ticker, startDate) {
 	if(!ticker) {
 		ticker = defaultTicker;
