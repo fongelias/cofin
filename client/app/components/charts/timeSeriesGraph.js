@@ -29,7 +29,7 @@ export default class timeSeriesGraph {
 			.attr('transform', this.translateString(this.props.padding + this.props.yAxisWidth, this.props.padding))
 			.attr('class', 'line-group');
 
-		this.update(svg, state);
+		this.update(svg, state.series.GOOGL);
 	}
 
 	translateString(x,y) {
@@ -90,6 +90,7 @@ export default class timeSeriesGraph {
 
 
 	scale(props, state) {
+		console.log(state);
 		let domain_y = d3.extent(state, (d) => d[1]);
 		let domain_x = d3.extent(state, (d) => this.dateCast(d[0]));
 

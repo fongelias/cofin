@@ -4,15 +4,13 @@ var quandl = require('../services/quandl.server.service.js');
 //Exports
 exports.renderIndex = function(req, res) {
 	var state = {
-		ticker: [],
-		prices: {},
+		series: {},
 	};
 
 
 	quandl.getStockData()
 		.then(function(response) {
-			state.ticker = response.ticker;
-			state.prices[response.ticker] = response.datatable.data;
+			state.series[response.ticker] = response.datatable.data;
 
 			res.render('pages/index', {
 				state: state,
