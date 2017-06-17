@@ -29,7 +29,7 @@ export default class timeSeriesGraph {
 			.attr('transform', this.translateString(this.props.padding + this.props.yAxisWidth, this.props.padding))
 			.attr('class', 'line-group');
 
-		this.update(svg, state.series.GOOGL);
+		this.update(element, state);
 	}
 
 	translateString(x,y) {
@@ -39,17 +39,14 @@ export default class timeSeriesGraph {
 
 
 	update(element, state) {
+		let container = d3.select(element);
 		//Scale
 		let scale = this.scale(this.props, state);
 		//Data
-		this.drawAxes(element, scale);
-		this.drawLine(element, scale, state, this.props);
-	}
-
-
-
-	destroy(element) {
-
+		if(Object.keys(state.series).length) {
+			this.drawAxes(container, scale);
+		}
+		this.drawLine(container, scale, state, this.props);
 	}
 
 
@@ -69,19 +66,7 @@ export default class timeSeriesGraph {
 		}
 	}
 
-	/*extent(state) {
-		let max;
-		let min;
-		let shape = this.dimensions(state);
 
-
-	}
-
-	dimensions(arr, count = 0) {
-		return Array.isArray(arr[0]) ? 
-			this.dimensions(arr[0], count + 1) : 
-			{count: count + 1, type: arr};
-	}*/
 
 	dateCast(d) {
 		return new Date(Date.parse(d));
@@ -89,10 +74,21 @@ export default class timeSeriesGraph {
 
 
 
+	combineEntries(obj) {
+		let points = [];
+		Object.keys(obj).forEach((key) => {
+			points = points.concat(obj[key]);
+		})
+
+		return points;
+	}
+
+
+
 	scale(props, state) {
-		console.log(state);
-		let domain_y = d3.extent(state, (d) => d[1]);
-		let domain_x = d3.extent(state, (d) => this.dateCast(d[0]));
+		let combinedSeries = this.combineEntries(state.series);
+		let domain_y = d3.extent(combinedSeries, (d) => d[1]);
+		let domain_x = d3.extent(combinedSeries, (d) => this.dateCast(d[0]));
 
 		let y = d3.scaleLinear()
 			.domain(domain_y)
@@ -121,14 +117,19 @@ export default class timeSeriesGraph {
 	}
 
 
-
-	drawLine(element, scale, state, props) {
+	createLines(scale, state) {
 		let line = d3.line()
 			.x(d => scale.x(this.dateCast(d[0])))
 			.y(d => scale.y(d[1]));
 
+		return Object.keys(state.series).map((ticker) => {
+			return line(state.series[ticker]);
+		})
+	}
+
+	drawLine(element, scale, state, props) {
 		let lineSelector = element.select('.line-group').selectAll('path')
-			.data([state]);
+			.data(this.createLines(scale, state));
 
 		let newlines = lineSelector.enter()
 			.append('path')
@@ -137,7 +138,13 @@ export default class timeSeriesGraph {
 			.attr("stroke-linejoin", "round")
 			.attr("stroke-linecap", "round")
 			.attr("stroke-width", 1.5)
-			.attr('d', line)
+
+		lineSelector.merge(newlines)
+			.transition()
+			.duration(750)
+			.attr('d', (d) => d);
+
+		lineSelector.exit().remove();
 
 
 	}
