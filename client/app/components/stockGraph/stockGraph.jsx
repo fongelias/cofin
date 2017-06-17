@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import timeSeriesGraph from '../charts/timeSeriesGraph';
-import PropTypes from 'prop-types';
+
 
 export default class StockGraph extends Component {
 	constructor(props) {
@@ -10,38 +10,28 @@ export default class StockGraph extends Component {
 	}
 
 	componentDidMount() {
-		//Subscribe to store
-		this.context.store.subscribe(this.render());
-
-		//Draw Graph
 		let element = this.refs.stockgraph;
 
-		/*const dataSet1 = [
-			["2012-05-18", 42.05],
-			["2012-05-21", 36.53],
-			["2012-05-22", 32.61],
-		]*/
+		//Subscribe to store
+		this.props.store.subscribe(() => {
+			this.timeSeries.update(element, this.props.store.getState());
+		});
 
-		this.timeSeries.create(element, this.context.store.getState());
+		//Draw Graph
+		this.timeSeries.create(element, this.props.store.getState());
 		
 	}
 
 	componentDidUpdate() {
-
-	}
-
-	componentWillUnmount() {
-
+		this.timeSeries.update(element, this.props.store.getState());
 	}
 
 	render() {
+		console.log('rendering');
 		return(
 			<div ref="stockgraph" className="stock-graph"></div>
 		)
 	}
 }
 
-StockGraph.contextTypes = {
-	store: PropTypes.object,
-};
 
