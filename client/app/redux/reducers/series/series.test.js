@@ -7,8 +7,8 @@ import * as TYPES from '../../actions/types';
 describe('A series reducer for redux state', () => {
 
 	//Test states
-	const seriesDefaultState = { series: {} };
-	const seriesWithTicker = { series: { GOOGL: [] } };
+	const seriesDefaultState = {};
+	const seriesWithTicker = { GOOGL: [] };
 	//Test actions
 	const testAddSeries = {
 		type: TYPES.ADD_SERIES,
