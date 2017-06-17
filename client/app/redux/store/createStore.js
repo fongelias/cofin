@@ -8,6 +8,7 @@ export default (reducer, preloadedState) => {
 
 	const dispatch = (action) => {
 		state = reducer(state, action);
+
 		listeners.forEach(listener => listener());
 	}
 
