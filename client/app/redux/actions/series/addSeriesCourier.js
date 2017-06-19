@@ -9,7 +9,8 @@ const addSeries = (ticker, data) => {
 	}
 }
 
-export default (ticker, dispatcher) => {
+
+export const addSeriesCourier = (ticker, dispatcher) => {
 	fetch('api/stocks/' + ticker, {
 		credentials: 'same-origin',
 		headers: {
@@ -18,7 +19,7 @@ export default (ticker, dispatcher) => {
 		}
 	}).then((response) => response.json())
 	.then((json) => {
-		console.log(json);
-		dispatcher(addSeries(ticker, json));
+		console.log(addSeries(ticker, json.datatable.data));
+		dispatcher(addSeries(ticker, json.datatable.data));
 	})
 }

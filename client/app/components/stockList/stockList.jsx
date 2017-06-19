@@ -9,7 +9,7 @@ export default class StockList extends Component {
 	
 	render() {
 		let store = this.props.store;
-		console.log(this.props.store.getState());
+
 		return(
 			<div className="stock-list">
 				{
