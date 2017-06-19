@@ -27,7 +27,6 @@ export default class StockGraph extends Component {
 	}
 
 	render() {
-		console.log('rendering');
 		return(
 			<div ref="stockgraph" className="stock-graph"></div>
 		)

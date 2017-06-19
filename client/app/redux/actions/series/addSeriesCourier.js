@@ -19,7 +19,6 @@ export const addSeriesCourier = (ticker, dispatcher) => {
 		}
 	}).then((response) => response.json())
 	.then((json) => {
-		console.log(addSeries(ticker, json.datatable.data));
 		dispatcher(addSeries(ticker, json.datatable.data));
 	})
 }
