@@ -18,8 +18,9 @@ export default class StockSearch extends Component {
 		let store = this.props.store;
 
 		return (
-			<div>
-				<input ref="stocksearch" type="text" onKeyPress={this.handleSubmit}/>
+			<div className="stock-search">
+				<input ref="stocksearch" type="text" placeholder="Add a ticker" onKeyPress={this.handleSubmit}/>
+				<label>Press Enter to add the ticker</label>
 			</div>
 		)
 	}

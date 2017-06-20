@@ -15,9 +15,9 @@ export default class StockList extends Component {
 				{
 					Object.keys(store.getState().series).map((ticker) => {
 						return (
-							<div key={ticker}>
-								<span>{ticker}</span>
+							<div className="list-item-container" key={ticker}>
 								<button onClick={() => {store.dispatch(deleteSeries(ticker))}}>x</button>
+								<span>{ticker}</span>
 							</div>
 						)
 					})

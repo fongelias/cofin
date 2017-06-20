@@ -9,7 +9,7 @@ export default class timeSeriesGraph {
 
 		let svg = d3.select(element).append('svg')
 			.attr('class', 'timeSeriesGraph')
-			.attr('width', this.props.width + this.props.padding * 2 + this.props.yAxisWidth)
+			.attr('width', this.props.width + this.props.padding * 3 + this.props.yAxisWidth)
 			.attr('height', this.props.height + this.props.padding * 2 + this.props.xAxisHeight);
 
 
@@ -65,7 +65,7 @@ export default class timeSeriesGraph {
 			height: props.height || 200,
 			width: props.width || 400,
 			strokeWidth: props.strokeWidth || 1.5,
-			padding: props.padding || 30,
+			padding: props.padding || 40,
 			xAxisHeight: 21,
 			yAxisWidth: 21,
 			colorRange: d3.scaleOrdinal().range(colorRange),
@@ -172,6 +172,7 @@ export default class timeSeriesGraph {
 			.style("fill", (d ,i) => props.colorRange(i))
 			.attr('transform', d => "translate(" + scale.x(this.dateCast(last(d[1])[0])) + ")")
 			.style("font-size", "10px")
+			.style("font-family", "sans-serif")
 			
 
 		labelSelector.merge(newLabels)

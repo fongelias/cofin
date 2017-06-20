@@ -20,5 +20,8 @@ export const addSeriesCourier = (ticker, dispatcher) => {
 	}).then((response) => response.json())
 	.then((json) => {
 		dispatcher(addSeries(ticker, json.datatable.data));
+	}).catch((error) => {
+		//Show error in UI
+		console.log(error);
 	})
 }
