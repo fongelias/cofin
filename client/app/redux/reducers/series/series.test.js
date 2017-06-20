@@ -15,6 +15,10 @@ describe('A series reducer for redux state', () => {
 		ticker: 'GOOGL',
 		data: [],
 	}
+	const testDelSeries = {
+		type: TYPES.DEL_SERIES,
+		ticker: 'GOOGL',
+	}
 	const testInvalidAction = {
 		type: 'INVALID_ACTION',
 	}
@@ -35,8 +39,12 @@ describe('A series reducer for redux state', () => {
 		assert.deepEqual(series(seriesDefaultState, testInvalidAction), seriesDefaultState);
 	})
 
-	it('should return a new state based on a passed action', () => {
+	it('should return a new state based on a ADD_SERIES action', () => {
 		assert.deepEqual(series(seriesDefaultState, testAddSeries), seriesWithTicker);
+	})
+
+	it('should return a new state based on a DEL_SERIES action', () => {
+		assert.deepEqual(series(seriesDefaultState, testDelSeries), seriesDefaultState);
 	})
 
 	it('should return a new object', () => {
