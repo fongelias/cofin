@@ -1,0 +1,42 @@
+/*-- Variables --*/
+$sanguine: #7c0920;
+$royal-purple: #44094d;
+$blue: #03396c;
+$marine-green: #005555;
+$mustard: #ffbe4f;
+$transparent: rgba(0,0,0,0);
+/*-- Mixins --*/
+@import './mixins/__flexbox';
+@import './mixins/__animate';
+/*-- Primary Containers --*/
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	padding:0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	@include flexbox;
+	@include flex-direction(column);
+	@include flex-wrap(nowrap);
+	@include justify-content(flex-start);
+	@include align-items(stretch);
+	@include align-content(stretch);
+	background: white;
+}
+
+#root {
+	overflow: auto;
+	padding-bottom: 100px;
+}
+
+/*-- Components --*/
