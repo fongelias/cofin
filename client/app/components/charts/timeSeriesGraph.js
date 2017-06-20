@@ -29,6 +29,11 @@ export default class timeSeriesGraph {
 			.attr('transform', this.translateString(this.props.padding + this.props.yAxisWidth, this.props.padding))
 			.attr('class', 'line-group');
 
+		let labelGroup = svg.append('g')
+			.attr('transform', this.translateString(this.props.padding + this.props.yAxisWidth, this.props.padding))
+			.attr('class', 'label-group');
+
+
 		this.update(element, state);
 	}
 
@@ -43,10 +48,11 @@ export default class timeSeriesGraph {
 		//Scale
 		let scale = this.scale(this.props, state);
 		//Data
-		if(Object.keys(state.series).length) {
+		if(Object.keys(state.series).length !== 0) {
 			this.drawAxes(container, scale);
 		}
 		this.drawLine(container, scale, state, this.props);
+		this.drawLabels(container, scale, state, this.props);
 	}
 
 
@@ -56,10 +62,10 @@ export default class timeSeriesGraph {
 		let colorRange = props.colorRange || ['#7c0920','#44094d', '#03396c', '#005555', '#ffbe4f'];
 
 		return {
-			height: props.height || 150,
-			width: props.width || 300,
+			height: props.height || 200,
+			width: props.width || 400,
 			strokeWidth: props.strokeWidth || 1.5,
-			padding: props.padding || 20,
+			padding: props.padding || 30,
 			xAxisHeight: 21,
 			yAxisWidth: 21,
 			colorRange: d3.scaleOrdinal().range(colorRange),
@@ -117,6 +123,8 @@ export default class timeSeriesGraph {
 	}
 
 
+
+
 	createLines(scale, state) {
 		let line = d3.line()
 			.x(d => scale.x(this.dateCast(d[0])))
@@ -131,25 +139,50 @@ export default class timeSeriesGraph {
 		let lineSelector = element.select('.line-group').selectAll('path')
 			.data(this.createLines(scale, state));
 
-		let newlines = lineSelector.enter()
+		let newLines = lineSelector.enter()
 			.append('path')
 			.attr("fill", "none")
 			.attr("stroke", (d ,i) => props.colorRange(i))
 			.attr("stroke-linejoin", "round")
 			.attr("stroke-linecap", "round")
-			.attr("stroke-width", 1.5)
+			.attr("stroke-width", props.strokeWidth)
 
-		lineSelector.merge(newlines)
+		lineSelector.merge(newLines)
 			.transition()
 			.duration(750)
-			.attr('d', (d) => d);
+			.attr('d', d => d);
 
 		lineSelector.exit().remove();
 
-
 	}
 
+	drawLabels(element, scale, state, props) {
+		let entries = Object.entries(state.series);
+		console.log(entries);
 
+		const last = arr => arr[arr.length - 1];
+
+		let labelSelector = element.select('.label-group').selectAll('text')
+			.data(entries);
+
+		let newLabels = labelSelector.enter()
+			.append('text')
+			.attr("x", 3)
+			.attr("dy", "0.35em")
+			.style("fill", (d ,i) => props.colorRange(i))
+			.attr('transform', d => "translate(" + scale.x(this.dateCast(last(d[1])[0])) + ")")
+			.style("font-size", "10px")
+			
+
+		labelSelector.merge(newLabels)
+			.transition()
+			.duration(750)
+			.attr('transform', d => "translate(" + scale.x(this.dateCast(last(d[1])[0])) + "," + scale.y(last(d[1])[1]) + ")")
+			.text(d => d[0])
+
+		labelSelector.exit().remove();
+
+	}
 	
 }
 

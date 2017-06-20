@@ -4,7 +4,7 @@ var https = require('https');
 
 //Const
 var hostname = 'www.quandl.com';
-var defaultTicker = 'GOOGL';
+var defaultTicker = 'AAPL';
 
 //Helper Functions+++++++++++++++++++++++++++++++++++++
 function zeroPad(string) {
