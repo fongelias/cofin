@@ -47,13 +47,13 @@ describe('A StockList component', () => {
 			testSpans.last().text(),
 		]
 		const stateTickers = Object.keys(testState.series);
-		const equals = (arr1, arr2) => {
+		const arraysEqual = (arr1, arr2) => {
 			return arr1.map((val, i)=>{
 				return val == arr2[i];
 			}).reduce((prev, curr) => prev && curr);
 		}
 
-		assert(equals(renderedTickers, stateTickers));
+		assert(arraysEqual(renderedTickers, stateTickers));
 	})
 
 

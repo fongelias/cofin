@@ -37,6 +37,8 @@ export default class timeSeriesGraph {
 		this.update(element, state);
 	}
 
+
+
 	translateString(x,y) {
 		return 'translate(' + x + ',' + y + ')';
 	}
@@ -74,12 +76,6 @@ export default class timeSeriesGraph {
 
 
 
-	dateCast(d) {
-		return new Date(Date.parse(d));
-	}
-
-
-
 	combineEntries(obj) {
 		let points = [];
 		Object.keys(obj).forEach((key) => {
@@ -94,7 +90,7 @@ export default class timeSeriesGraph {
 	scale(props, state) {
 		let combinedSeries = this.combineEntries(state.series);
 		let domain_y = d3.extent(combinedSeries, (d) => d[1]);
-		let domain_x = d3.extent(combinedSeries, (d) => this.dateCast(d[0]));
+		let domain_x = d3.extent(combinedSeries, (d) => new Date(d[0]));
 
 		let y = d3.scaleLinear()
 			.domain(domain_y)
@@ -127,7 +123,7 @@ export default class timeSeriesGraph {
 
 	createLines(scale, state) {
 		let line = d3.line()
-			.x(d => scale.x(this.dateCast(d[0])))
+			.x(d => scale.x(new Date(d[0])))
 			.y(d => scale.y(d[1]));
 
 		return Object.keys(state.series).map((ticker) => {
@@ -170,7 +166,7 @@ export default class timeSeriesGraph {
 			.attr("x", 3)
 			.attr("dy", "0.35em")
 			.style("fill", (d ,i) => props.colorRange(i))
-			.attr('transform', d => "translate(" + scale.x(this.dateCast(last(d[1])[0])) + ")")
+			.attr('transform', d => "translate(" + scale.x(new Date(last(d[1])[0])) + ")")
 			.style("font-size", "10px")
 			.style("font-family", "sans-serif")
 			
@@ -178,7 +174,7 @@ export default class timeSeriesGraph {
 		labelSelector.merge(newLabels)
 			.transition()
 			.duration(750)
-			.attr('transform', d => "translate(" + scale.x(this.dateCast(last(d[1])[0])) + "," + scale.y(last(d[1])[1]) + ")")
+			.attr('transform', d => "translate(" + scale.x(new Date(last(d[1])[0])) + "," + scale.y(last(d[1])[1]) + ")")
 			.text(d => d[0])
 
 		labelSelector.exit().remove();
