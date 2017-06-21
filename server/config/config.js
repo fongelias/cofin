@@ -1,1 +1,1 @@
-module.exports = require('./env/' + process.env.NODE_ENV);
+module.exports = require('./env/__' + process.env.NODE_ENV);
