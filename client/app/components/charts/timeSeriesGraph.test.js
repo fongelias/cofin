@@ -34,7 +34,6 @@ describe('A d3 line graph', () => {
 				tickerB: [[3,4]],
 			}
 			const result = graph.combineEntries(testObject);
-			console.log(result);
 			const expectedResult = [[1,2],[3,4]];
 			const arraysDeepEqual = (arr1, arr2) => {
 				if(arr1.length !== arr2.length) {

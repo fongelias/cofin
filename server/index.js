@@ -11,10 +11,11 @@ var express = require('./config/express.js');
 var app = express();
 
 //Set Port
-app.listen(config.port);
+var server = app.listen(config.port);
 
-//Expose Module
-module.exports = app;
+//Expose Modules
+exports.app = app;
+exports.server = server;
 
 
 console.log(process.env.NODE_ENV + 'server running at: '  + config.port);
