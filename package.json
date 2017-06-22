@@ -11,7 +11,7 @@
     "watch": "webpack -w && node server",
     "dist": "webpack -p",
     "dev": "webpack && node server",
-    "start": "webpack -p && node server"
+    "start": "node server"
   },
   "repository": {
     "type": "git",
