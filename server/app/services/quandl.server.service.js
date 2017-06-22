@@ -18,7 +18,7 @@ function lastYear() {
 
 
 //Exports++++++++++++++++++++++++++++++++++++++++++++++
-exports.getStockData = function(ticker, startDate) {
+exports.getStockData = function(ticker) {
 	if(!ticker) {
 		ticker = defaultTicker;
 	}
